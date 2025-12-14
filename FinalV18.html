@@ -4,9 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>مركز الراشد - إدارة المنتجات</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght=400;700&display=swap" rel="stylesheet">
 <style>
-/* ================== CSS ================== */
+/* -------------------- أنماط التصميم (الإصدار V20 - تلوين الصفوف حسب مفتاح البحث) -------------------- */
+
 body { 
     font-family: 'Cairo', sans-serif; 
     direction: rtl; 
@@ -47,9 +48,6 @@ h2 {
     margin-top: 0;
     font-size: 22px;
 }
-input, button {
-    font-family: 'Cairo', sans-serif;
-}
 .add-form input {
     padding: 14px 15px; 
     margin: 10px 0; 
@@ -78,7 +76,10 @@ input, button {
     margin-top: 15px;
     transition: background 0.3s;
 }
-#addProductButton:hover { background: #047857; }
+#addProductButton:hover {
+    background: #047857;
+}
+
 #searchInput {
     margin-bottom: 20px;
     background: #f9f9f9;
@@ -88,49 +89,247 @@ input, button {
     width: 100%;
     box-sizing: border-box;
 }
+
 #productsTable {
     width: 100%; 
     border-collapse: collapse; 
     border-spacing: 0;
+    margin-top: 0;
 }
 #productsTable th, #productsTable td {
     padding: 15px; 
     text-align: center;
     border-bottom: 1px solid #e0e6ec;
+    transition: background-color 0.3s; /* لتأثير التمرير */
 }
-#productsTable td { font-size: 17px; }
+
+/* تكبير حجم خط الخلايا لزيادة الوضوح */
+#productsTable td {
+    font-size: 17px; 
+}
+
 #productsTable th {
     background: #3b82f6; 
     color: white; 
     font-size: 15px;
 }
-#productsTable tr:nth-child(even) { background: #f8f9fa; }
-td[contenteditable="true"] { background: #e6f7ff; border-radius: 4px; border: 1px dashed #40a9ff; color: #000; }
 
-/* Toggle switch */
-.switch { position: relative; display: inline-block; width: 60px; height: 34px; }
-.switch input { opacity: 0; width: 0; height: 0; }
-.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ef4444; transition: .4s; border-radius: 34px; }
-.slider:before { position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
-input:checked + .slider { background-color: #10b981; }
-input:checked + .slider:before { transform: translateX(26px); }
+/* -------------------- أنماط تلوين الصفوف حسب مفتاح البحث -------------------- */
+/* لون الصف الافتراضي إذا لم يتم العثور على مفتاح محدد */
+#productsTable tr {
+    background: #ffffff; /* أبيض */
+    color: #333;
+}
+#productsTable tr:hover {
+    filter: brightness(0.95); /* تفتيح بسيط عند التمرير */
+}
+#productsTable tr:nth-child(even) {
+    background: #f8f9fa; /* لون افتراضي للصف الزوجي */
+}
 
-/* Action dropdown */
-.action-cell { position: relative; width: 100px; }
-.options-btn { background: #1c4587; color: white; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-size: 20px; transition: background 0.3s; }
-.options-dropdown { display: none; position: absolute; right: 50%; transform: translateX(50%); top: 100%; margin-top: 5px; background: white; min-width: 140px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 50; border-radius: 8px; overflow: hidden; text-align: right; }
-.options-dropdown button { display: block; width: 100%; padding: 12px; border: none; background: none; text-align: right; cursor: pointer; font-size: 14px; }
-.options-dropdown button:hover { background: #e0e6ec; }
+/* SAM: ازرق غامق */
+.key-sam { background-color: #1a237e !important; color: white !important; }
+.key-sam td { border-bottom-color: #3f51b5 !important; }
+.key-sam td[contenteditable="true"] { background: #5c6bc0 !important; color: white !important; }
+
+/* HWA: احمر على وردي */
+.key-hwa { background-color: #e91e63 !important; color: white !important; }
+.key-hwa td { border-bottom-color: #f06292 !important; }
+.key-hwa td[contenteditable="true"] { background: #f8bbd0 !important; color: #333 !important; }
+
+/* REAL: اصفر */
+.key-real { background-color: #ffeb3b !important; color: #333 !important; }
+.key-real td { border-bottom-color: #fff176 !important; }
+.key-real td[contenteditable="true"] { background: #fffde7 !important; color: #333 !important; }
+
+/* HNR: رصاصي فاتح */
+.key-hnr { background-color: #bdbdbd !important; color: #333 !important; }
+.key-hnr td { border-bottom-color: #e0e0e0 !important; }
+.key-hnr td[contenteditable="true"] { background: #f5f5f5 !important; color: #333 !important; }
+
+/* TEC: ازرق فاتح */
+.key-tec { background-color: #03a9f4 !important; color: white !important; }
+.key-tec td { border-bottom-color: #4fc3f7 !important; }
+.key-tec td[contenteditable="true"] { background: #b3e5fc !important; color: #333 !important; }
+
+/* INF: اخضر فاتح */
+.key-inf { background-color: #8bc34a !important; color: #333 !important; }
+.key-inf td { border-bottom-color: #c5e1a5 !important; }
+.key-inf td[contenteditable="true"] { background: #f1f8e9 !important; color: #333 !important; }
+
+/* XM: برتقالي */
+.key-xm { background-color: #ff9800 !important; color: white !important; }
+.key-xm td { border-bottom-color: #ffb74d !important; }
+.key-xm td[contenteditable="true"] { background: #ffe0b2 !important; color: #333 !important; }
+
+/* OPP: اخضر غامق */
+.key-opp { background-color: #4caf50 !important; color: white !important; }
+.key-opp td { border-bottom-color: #81c784 !important; }
+.key-opp td[contenteditable="true"] { background: #c8e6c9 !important; color: #333 !important; }
+
+/* IPH: اسود */
+.key-iph { background-color: #212121 !important; color: white !important; }
+.key-iph td { border-bottom-color: #424242 !important; }
+.key-iph td[contenteditable="true"] { background: #616161 !important; color: white !important; }
+/* ------------------------------------------------------------------------------------ */
+
+
+/* لون الخلفية المريح للحقول القابلة للتعديل - الإعداد الافتراضي إذا لم يتم تحديد فئة */
+td[contenteditable="true"] {
+    background: #e6f7ff; 
+    color: #000000; 
+    border-radius: 4px;
+    border: 1px dashed #40a9ff; 
+}
+
+
+/* -------------------- أنماط زر التبديل (Toggle Switch) -------------------- */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+.switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ef4444; /* أحمر (غير متوفر) */
+    transition: .4s;
+    border-radius: 34px;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .slider {
+    background-color: #10b981; /* أخضر (متوفر) */
+}
+input:focus + .slider {
+    box-shadow: 0 0 1px #10b981;
+}
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* -------------------- أنماط زر الإعدادات المدمج -------------------- */
+.action-cell {
+    position: relative;
+    width: 100px; 
+}
+.options-btn {
+    background: #1c4587; 
+    color: white; 
+    border: none; 
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    cursor: pointer;
+    font-size: 20px; 
+    line-height: 1;
+    transition: background 0.3s;
+}
+
+.options-dropdown {
+    display: none;
+    position: absolute;
+    right: 50%; 
+    transform: translateX(50%);
+    top: 100%;
+    margin-top: 5px;
+    background: white;
+    min-width: 140px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 50;
+    border-radius: 8px;
+    overflow: hidden;
+    text-align: right;
+}
+
+.options-dropdown button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background: none;
+    text-align: right;
+    cursor: pointer;
+    font-family: 'Cairo', sans-serif;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.options-dropdown button:hover {
+    background: #e0e6ec;
+}
 .options-dropdown .save-btn-dd { color: #10b981; }
 .options-dropdown .delete-btn-dd { color: #ef4444; }
 
-/* Mobile */
+
+/* -------------------- Media Queries لعرض الهاتف -------------------- */
 @media screen and (max-width: 768px) {
+    
     #productsTable thead { display: none; }
-    #productsTable tr { margin-bottom: 15px; border-radius: 10px; display: block; }
-    #productsTable td { display: block; padding: 10px; text-align: right; position: relative; }
-    #productsTable td:before { content: attr(data-label); font-weight: bold; color: #1c4587; display: inline-block; width: 40%; }
-    .action-cell { width: 100%; padding: 10px 15px !important; }
+    
+    #productsTable tr {
+        margin-bottom: 15px;
+        border-radius: 10px;
+    }
+    
+    /* الخلية الأولى (التوفر) تحتاج تنسيق خاص */
+    #productsTable td:nth-child(1) {
+        text-align: center;
+        padding: 10px 10px;
+        border-bottom: 1px dotted #e0e6ec; 
+    }
+    #productsTable td:nth-child(1):before {
+        content: attr(data-label);
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%); 
+        width: 40%; 
+        font-weight: bold;
+        color: #1c4587;
+        text-align: right;
+    }
+    
+    /* إزاحة باقي الخلايا (من 2 إلى 5) */
+    #productsTable td:nth-child(n+2):nth-last-child(2) {
+        padding: 12px 55% 12px 10px; 
+    }
+    
+    /* خلية الإجراءات (الخلية الأخيرة) */
+    #productsTable td:nth-last-child(1) {
+        display: block; 
+        width: 100%; 
+        padding: 10px 10px; 
+        text-align: center;
+        border-top: 1px solid #e0e6ec;
+        border-bottom: none;
+    }
+    #productsTable td:nth-last-child(1):before {
+        content: none;
+    }
+    
+    .action-cell {
+        width: 100%;
+        padding: 10px 15px !important; 
+    }
 }
 </style>
 </head>
@@ -138,23 +337,27 @@ input:checked + .slider:before { transform: translateX(26px); }
 <header>مركز الراشد - إدارة المخزون والأسعار</header>
 <div class="container">
 
-    <!-- إضافة منتج -->
     <div id="addProductSection" class="card">
-        <h2>إضافة منتج جديد</h2>
-        <div class="add-form">
-            <input type="text" id="productName" placeholder="📝 اسم المنتج">
-            <input type="text" id="brand" placeholder="🏷️ الماركة">
-            <input type="text" id="searchKey" placeholder="🔑 مفتاح البحث"> 
-            <input type="number" id="wholesalePrice" placeholder="💵 سعر الجملة">
-            <input type="number" id="repairPrice" placeholder="🛠️ سعر التصليح">
-            <button id="addProductButton" onclick="addProduct()">➕ إضافة المنتج الجديد</button>
+        <div class="add-form-content">
+            <span id="closeAddForm" style="display: none;" onclick="toggleAddForm(false)">&times;</span> 
+            <h2>إضافة منتج جديد</h2>
+            <div class="add-form">
+                <input type="text" id="productName" placeholder="📝 اسم المنتج">
+                <input type="text" id="brand" placeholder="🏷️ الماركة">
+                <input type="text" id="searchKey" placeholder="🔑 مفتاح البحث"> 
+                <input type="number" id="wholesalePrice" placeholder="💵 سعر الجملة">
+                <input type="number" id="repairPrice" placeholder="🛠️ سعر التصليح">
+                <button id="addProductButton" onclick="addProduct()">
+                    ➕ إضافة المنتج الجديد
+                </button>
+            </div>
         </div>
     </div>
     
-    <!-- قائمة المنتجات -->
     <div class="card">
         <h2>قائمة المنتجات والأسعار</h2>
-        <input type="text" id="searchInput" placeholder="🔍 ابحث باستخدام مفتاح البحث..." onkeyup="searchProduct()">
+        <input type="text" class="search-box" id="searchInput" placeholder="🔍 ابحث باستخدام مفتاح البحث..." onkeyup="searchProduct()">
+
         <table id="productsTable">
             <thead>
                 <tr>
@@ -172,143 +375,419 @@ input:checked + .slider:before { transform: translateX(26px); }
     </div>
 </div>
 
-<!-- Firebase -->
+<div class="floating-buttons" style="display: none;">
+    <button id="showAddBtn" onclick="toggleAddForm(true)">+</button>
+    <button id="searchToggleBtn" onclick="toggleSearchInput()">🔍</button>
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 
 <script>
-// ================== Firebase ==================
+// إعدادات Firebase 
 const firebaseConfig = {
     apiKey: "AIzaSyBpt495yhuoTbjunCLIFCF_8c1NesxZHWs",
     authDomain: "shopweb-3466b.firebaseapp.com",
     databaseURL: "https://shopweb-3466b-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "shopweb-3466b",
-    storageBucket: "shopweb-3466b.appspot.com",
+    storageBucket: "shopweb-3466b.firebasestorage.app",
     messagingSenderId: "41811528812",
     appId: "1:41811528812:web:618f240f8106f218a8dc49",
+    measurementId: "G-TQM29P5JMZ"
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// ================== Helper Functions ==================
+let isAddModalOpen = false;
+let isSearchInputVisible = false; 
+let activeDropdownKey = null; 
+
+// -------------------- دوال تنسيق الأرقام --------------------
+
 function formatNumber(num) {
-    if (!num) return '';
+    if (num === null || num === undefined || num === '') return '';
     return Number(num).toLocaleString('en-US', { maximumFractionDigits: 0 });
 }
+
 function cleanNumber(text) {
     if (!text) return 0;
-    return text.toString().replace(/,/g,'').trim();
+    return text.replace(/,/g, '').trim(); 
 }
 
-// ================== CRUD ==================
-function createProductRow(product, key, tbody){
+// -------------------- دالة جديدة: تحديد نمط الصف --------------------
+
+function getRowStyleClass(searchKey) {
+    if (!searchKey) return '';
+    
+    // تحويل مفتاح البحث إلى صيغة نظيفة وموحدة للمطابقة
+    const key = searchKey.toUpperCase().trim(); 
+
+    switch (key) {
+        case 'SAM': return 'key-sam';
+        case 'HWA': return 'key-hwa';
+        case 'REAL': return 'key-real';
+        case 'HNR': return 'key-hnr';
+        case 'TEC': return 'key-tec';
+        case 'INF': return 'key-inf';
+        case 'XM': return 'key-xm';
+        case 'OPP': return 'key-opp';
+        case 'IPH': return 'key-iph';
+        default: return ''; // لون افتراضي 
+    }
+}
+
+
+// -------------------- دوال التحكم بالواجهة (ثابتة) --------------------
+function checkScreenSize(isResizeEvent = false) {
+    const isMobile = window.innerWidth <= 768;
+    const addSection = document.getElementById('addProductSection');
+    const closeBtn = document.getElementById('closeAddForm');
+    const floatingBtns = document.querySelector('.floating-buttons');
+    const searchInput = document.getElementById('searchInput');
+
+    if (isMobile) {
+        if (isResizeEvent && (isAddModalOpen || isSearchInputVisible)) {
+            return;
+        }
+
+        addSection.classList.remove('card');
+        closeBtn.style.display = 'block';
+        floatingBtns.style.display = 'flex';
+        
+        if (!isAddModalOpen) {
+            addSection.style.display = 'none';
+        }
+        
+        if (!isSearchInputVisible) {
+            searchInput.style.display = 'none';
+        }
+
+    } else {
+        addSection.style.display = 'block';
+        addSection.classList.add('card');
+        closeBtn.style.display = 'none';
+        floatingBtns.style.display = 'none';
+        searchInput.style.display = 'block'; 
+        isAddModalOpen = false; 
+        isSearchInputVisible = false; 
+    }
+    closeOptionsMenu(); 
+}
+
+function toggleAddForm(show) {
+    const addSection = document.getElementById('addProductSection');
+    const floatingBtns = document.querySelector('.floating-buttons');
+    const isMobile = window.innerWidth <= 768;
+    
+    if (isMobile) {
+        if (show) {
+            addSection.style.display = 'block';
+            floatingBtns.style.display = 'none';
+            isAddModalOpen = true; 
+        } else {
+            addSection.style.display = 'none';
+            floatingBtns.style.display = 'flex';
+            isAddModalOpen = false; 
+        }
+    } 
+}
+
+function toggleSearchInput() {
+    const searchInput = document.getElementById('searchInput');
+    const isMobile = window.innerWidth <= 768;
+    const floatingBtns = document.querySelector('.floating-buttons');
+
+    if (isMobile) {
+        if (isSearchInputVisible) {
+            searchInput.style.display = 'none';
+            searchInput.value = ''; 
+            searchProduct(); 
+            floatingBtns.style.display = 'flex'; 
+            isSearchInputVisible = false; 
+
+        } else {
+            searchInput.style.display = 'block';
+            searchInput.focus();
+            searchInput.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            floatingBtns.style.display = 'none'; 
+            isSearchInputVisible = true; 
+        }
+    }
+}
+
+
+// -------------------- دوال الإجراءات (Toggle, Save, Delete) --------------------
+
+function toggleOptionsMenu(key) {
+    if (activeDropdownKey && activeDropdownKey !== key) {
+        document.getElementById(`dropdown-${activeDropdownKey}`).style.display = 'none';
+    }
+    
+    const dropdown = document.getElementById(`dropdown-${key}`);
+    const isVisible = dropdown.style.display === 'block';
+
+    if (isVisible) {
+        dropdown.style.display = 'none';
+        activeDropdownKey = null;
+    } else {
+        dropdown.style.display = 'block';
+        activeDropdownKey = key;
+    }
+}
+
+function closeOptionsMenu() {
+     if (activeDropdownKey) {
+        document.getElementById(`dropdown-${activeDropdownKey}`).style.display = 'none';
+        activeDropdownKey = null;
+    }
+}
+
+function toggleAvailability(event, key) {
+    const inputElement = event.target;
+    const newStatus = inputElement.checked; 
+    
+    db.ref('products/' + key).update({
+        isAvailable: newStatus
+    }).then(() => {
+        console.log(`تم تحديث توفر المنتج ${key} إلى: ${newStatus}`);
+    }).catch(error => {
+        inputElement.checked = !newStatus; 
+        alert('⚠️ حدث خطأ في تحديث حالة التوفر: ' + error.message);
+    });
+}
+
+
+function saveProduct(key) {
+    closeOptionsMenu();
+    const row = document.querySelector(`tr[data-key="${key}"]`);
+    if (!row) return alert('خطأ: لم يتم العثور على المنتج.');
+
+    const name = row.cells[1].innerText.trim();
+    const brand = row.cells[2].innerText.trim();
+    const searchKey = row.cells[3].innerText.trim();
+    
+    // تجريد الأرقام من الفواصل قبل الحفظ
+    const wholesale = cleanNumber(row.cells[4].innerText); 
+    const repair = cleanNumber(row.cells[5].innerText);
+
+    
+    db.ref('products/' + key).update({ 
+        name: name,
+        brand: brand,
+        searchKey: searchKey,
+        wholesale: wholesale,
+        repair: repair
+    }).then(() => {
+         alert('💾 تم حفظ التعديلات بنجاح');
+         // إعادة تحميل الصف لتحديث اللون إذا تغير مفتاح البحث
+         displayProducts();
+    });
+}
+
+function deleteProduct(key, name) {
+    closeOptionsMenu();
+    if (confirm(`هل أنت متأكد من حذف المنتج: ${name}؟`)) {
+        db.ref('products/' + key).remove().then(displayProducts);
+    }
+}
+
+document.addEventListener('click', function(e) {
+    if (activeDropdownKey) {
+        const dropdown = document.getElementById(`dropdown-${activeDropdownKey}`);
+        const optionsBtn = dropdown.previousSibling; 
+
+        if (!dropdown.contains(e.target) && e.target !== optionsBtn) {
+            closeOptionsMenu();
+        }
+    }
+});
+
+
+// -------------------- الدوال الأساسية لـ Firebase (تم التعديل) --------------------
+
+function createProductRow(product, key, tbody) {
     const row = tbody.insertRow();
-    row.setAttribute('data-key', key);
+    row.setAttribute('data-key', key); 
+    
+    // *الجديد*: إضافة نمط اللون للصف
+    const styleClass = getRowStyleClass(product.searchKey);
+    if (styleClass) {
+        row.classList.add(styleClass);
+    } else {
+        // إذا لم يكن هناك نمط محدد، نستخدم نمط الصف الزوجي الافتراضي
+        if (tbody.children.length % 2 === 0) {
+             row.classList.add('default-even-row'); // يمكن إضافة نمط لهذا لاحقاً
+        }
+    }
+    
+    // الخلية 0: التوفر
+    const availableCell = row.insertCell(0); availableCell.setAttribute('data-label', 'التوفر');
+    const availableLabel = document.createElement('label');
+    availableLabel.className = 'switch';
+    
+    const availableInput = document.createElement('input');
+    availableInput.type = 'checkbox';
+    
+    const isChecked = product.isAvailable === true || product.isAvailable === 'true';
+    availableInput.checked = isChecked;
 
-    // التوفر
-    const availableCell = row.insertCell(0); 
-    availableCell.setAttribute('data-label','التوفر');
-    const label = document.createElement('label'); label.className='switch';
-    const input = document.createElement('input'); input.type='checkbox'; input.checked = product.isAvailable===true||product.isAvailable==='true';
-    input.onclick = e=>toggleAvailability(e,key);
-    const slider = document.createElement('span'); slider.className='slider';
-    label.appendChild(input); label.appendChild(slider); availableCell.appendChild(label);
+    availableInput.onclick = function(event) {
+        toggleAvailability(event, key); 
+    };
+    
+    const availableSlider = document.createElement('span');
+    availableSlider.className = 'slider';
+    
+    availableLabel.appendChild(availableInput);
+    availableLabel.appendChild(availableSlider);
+    availableCell.appendChild(availableLabel);
 
-    // البيانات
-    const cells = ['name','brand','searchKey','wholesale','repair'];
-    cells.forEach((field,i)=>{
-        const cell = row.insertCell(i+1);
-        let value = product[field]||'';
-        if(field==='wholesale'||field==='repair') value=formatNumber(value);
-        cell.innerText=value;
-        cell.contentEditable="true";
-        cell.setAttribute('data-label',field==='name'?'اسم المنتج':field==='brand'?'الماركة':field==='searchKey'?'مفتاح البحث':field==='wholesale'?'سعر الجملة':'سعر التصليح');
-    });
 
-    // الإجراءات
-    const actionCell = row.insertCell(6); actionCell.className='action-cell';
-    const btn = document.createElement('button'); btn.className='options-btn'; btn.innerText='⚙️';
-    btn.onclick = e=>{e.stopPropagation(); toggleOptionsMenu(key);}
-    actionCell.appendChild(btn);
+    // خلايا البيانات (من الخلية 1 إلى 5)
+    const nameCell = row.insertCell(1); nameCell.innerText = product.name; nameCell.contentEditable = "true"; nameCell.setAttribute('data-label', 'اسم المنتج');
+    const brandCell = row.insertCell(2); brandCell.innerText = product.brand; brandCell.contentEditable = "true"; brandCell.setAttribute('data-label', 'الماركة');
+    const searchKeyCell = row.insertCell(3); searchKeyCell.innerText = product.searchKey || ''; searchKeyCell.contentEditable = "true"; searchKeyCell.setAttribute('data-label', 'مفتاح البحث'); 
+    
+    // تطبيق تنسيق الفاصلة على الأسعار
+    const wholesaleCell = row.insertCell(4); wholesaleCell.innerText = formatNumber(product.wholesale); wholesaleCell.contentEditable = "true"; wholesaleCell.setAttribute('data-label', 'سعر الجملة');
+    const repairCell = row.insertCell(5); repairCell.innerText = formatNumber(product.repair); repairCell.contentEditable = "true"; repairCell.setAttribute('data-label', 'سعر التصليح');
 
-    const dropdown = document.createElement('div'); dropdown.className='options-dropdown'; dropdown.id=`dropdown-${key}`;
-    const saveBtn=document.createElement('button'); saveBtn.innerText='💾 حفظ التعديلات'; saveBtn.className='save-btn-dd'; saveBtn.onclick=()=>saveProduct(key);
-    const deleteBtn=document.createElement('button'); deleteBtn.innerText='🗑️ حذف المنتج'; deleteBtn.className='delete-btn-dd'; deleteBtn.onclick=()=>deleteProduct(key,product.name);
-    dropdown.appendChild(saveBtn); dropdown.appendChild(deleteBtn); actionCell.appendChild(dropdown);
+    // الخلية 6: الإجراءات (الخلية الأخيرة)
+    const actionCell = row.insertCell(6); actionCell.setAttribute('data-label', 'الإجراءات');
+    actionCell.className = 'action-cell';
+
+    // زر الإعدادات (⚙️)
+    const optionsBtn = document.createElement('button');
+    optionsBtn.innerHTML = '⚙️'; 
+    optionsBtn.className = 'options-btn';
+    optionsBtn.onclick = function(event) {
+        event.stopPropagation(); 
+        toggleOptionsMenu(key);
+    };
+    actionCell.appendChild(optionsBtn);
+
+    // القائمة المنسدلة
+    const dropdown = document.createElement('div');
+    dropdown.id = `dropdown-${key}`;
+    dropdown.className = 'options-dropdown';
+
+    // زر الحفظ داخل القائمة
+    const saveBtn = document.createElement('button');
+    saveBtn.innerText = '💾 حفظ التعديلات'; 
+    saveBtn.className = 'save-btn-dd';
+    
+    saveBtn.onclick = function() { saveProduct(key); };
+    dropdown.appendChild(saveBtn);
+    
+    // زر الحذف داخل القائمة
+    const deleteBtn = document.createElement('button');
+    deleteBtn.innerText = '🗑️ حذف المنتج'; 
+    deleteBtn.className = 'delete-btn-dd';
+    deleteBtn.onclick = function() { deleteProduct(key, product.name); };
+    dropdown.appendChild(deleteBtn);
+    
+    actionCell.appendChild(dropdown);
 }
 
-// عرض المنتجات
-function displayProducts(){
-    const tbody = document.querySelector('#productsTable tbody');
-    tbody.innerHTML='';
-    db.ref('products').once('value',snap=>{
-        const products = snap.val();
-        if(!products){tbody.innerHTML='<tr><td colspan="7">لا توجد منتجات مضافة بعد.</td></tr>'; return;}
-        Object.keys(products).forEach(k=>createProductRow(products[k],k,tbody));
-    });
+function addProduct() {
+    const name = document.getElementById('productName').value.trim();
+    const brand = document.getElementById('brand').value.trim();
+    const searchKey = document.getElementById('searchKey').value.trim(); 
+    
+    const wholesale = cleanNumber(document.getElementById('wholesalePrice').value);
+    const repair = cleanNumber(document.getElementById('repairPrice').value);
+    
+    if(name && brand && searchKey && wholesale && repair) { 
+        db.ref('products').push({ 
+            name, 
+            brand, 
+            searchKey, 
+            wholesale: Number(wholesale), 
+            repair: Number(repair), 
+            isAvailable: true 
+        }).then(() => {
+            // مسح حقول الإدخال
+            document.getElementById('productName').value='';
+            document.getElementById('brand').value='';
+            document.getElementById('searchKey').value=''; 
+            document.getElementById('wholesalePrice').value='';
+            document.getElementById('repairPrice').value='';
+            
+            displayProducts();
+            alert('✅ تم إضافة المنتج بنجاح.');
+            if(window.innerWidth <= 768) toggleAddForm(false); 
+        }).catch(error => alert('حدث خطأ في الإضافة: ' + error.message));
+    } else { alert('⚠️ يرجى ملء جميع الحقول'); }
 }
 
-// البحث
-function searchProduct(){
-    const query = document.getElementById('searchInput').value.toLowerCase().trim();
-    const tbody=document.querySelector('#productsTable tbody');
-    tbody.innerHTML='';
-    db.ref('products').once('value',snap=>{
-        const products=snap.val(); if(!products){tbody.innerHTML='<tr><td colspan="7">لا توجد منتجات مضافة بعد.</td></tr>'; return;}
-        let found=false;
-        Object.keys(products).forEach(k=>{
-            const p=products[k];
-            if((p.searchKey||'').toLowerCase().includes(query)){ createProductRow(p,k,tbody); found=true; }
+function displayProducts() {
+    const tbody = document.getElementById('productsTable').getElementsByTagName('tbody')[0];
+    tbody.innerHTML = '';
+    db.ref('products').once('value', snapshot => {
+        const products = snapshot.val();
+        
+        const colspanCount = 7; 
+        
+        if(!products) {
+            tbody.innerHTML = `<tr><td colspan="${colspanCount}" data-label="المنتجات">لا توجد منتجات مضافة بعد.</td></tr>`; 
+            return;
+        }
+        
+        Object.keys(products).forEach(key => {
+            const product = products[key];
+            createProductRow(product, key, tbody); 
         });
-        if(!found) tbody.innerHTML='<tr><td colspan="7">لم يتم العثور على نتائج مطابقة.</td></tr>';
     });
 }
 
-// إضافة منتج
-function addProduct(){
-    const name=document.getElementById('productName').value.trim();
-    const brand=document.getElementById('brand').value.trim();
-    const searchKey=document.getElementById('searchKey').value.trim();
-    const wholesale=cleanNumber(document.getElementById('wholesalePrice').value);
-    const repair=cleanNumber(document.getElementById('repairPrice').value);
-    if(!name||!brand||!searchKey||!wholesale||!repair){alert('يرجى ملء جميع الحقول'); return;}
-    db.ref('products').push({name,brand,searchKey,wholesale:Number(wholesale),repair:Number(repair),isAvailable:true})
-    .then(()=>{document.getElementById('productName').value=''; document.getElementById('brand').value=''; document.getElementById('searchKey').value=''; document.getElementById('wholesalePrice').value=''; document.getElementById('repairPrice').value=''; displayProducts(); alert('تم إضافة المنتج بنجاح');})
-    .catch(e=>alert('حدث خطأ: '+e.message));
+function searchProduct() {
+    const query = document.getElementById('searchInput').value.toLowerCase().trim();
+    const tbody = document.getElementById('productsTable').getElementsByTagName('tbody')[0];
+    
+    tbody.innerHTML=''; 
+    
+    if (query === '') {
+        displayProducts();
+        return;
+    }
+    
+    db.ref('products').once('value', snapshot => {
+        const products = snapshot.val();
+        const colspanCount = 7;
+
+        if(!products) {
+            tbody.innerHTML = `<tr><td colspan="${colspanCount}" data-label="المنتجات">لا توجد منتجات مضافة بعد.</td></tr>`; 
+            return;
+        }
+        
+        let found = false;
+        Object.keys(products).forEach(key => {
+            const product = products[key];
+            
+            const searchKey = product.searchKey ? product.searchKey.toLowerCase() : '';
+            
+            if(searchKey.includes(query.toLowerCase())) {
+                createProductRow(product, key, tbody); 
+                found = true;
+            }
+        });
+
+        if (!found) {
+            tbody.innerHTML = `<tr><td colspan="${colspanCount}" data-label="المنتجات">لم يتم العثور على نتائج مطابقة.</td></tr>`; 
+        }
+    });
 }
 
-// حفظ التعديلات
-function saveProduct(key){
-    const row=document.querySelector(`tr[data-key="${key}"]`); if(!row){alert('خطأ: لم يتم العثور على المنتج'); return;}
-    const data={};
-    data.name=row.cells[1].innerText.trim();
-    data.brand=row.cells[2].innerText.trim();
-    data.searchKey=row.cells[3].innerText.trim();
-    data.wholesale=Number(cleanNumber(row.cells[4].innerText));
-    data.repair=Number(cleanNumber(row.cells[5].innerText));
-    db.ref('products/'+key).update(data).then(()=>alert('تم حفظ التعديلات'));
-}
+// -------------------- تشغيل الدوال --------------------
 
-// حذف المنتج
-function deleteProduct(key,name){
-    if(confirm(`هل أنت متأكد من حذف المنتج: ${name}?`)){ db.ref('products/'+key).remove().then(displayProducts); }
-}
+window.onload = function() {
+    displayProducts();
+    checkScreenSize();
+};
 
-// التوفر
-function toggleAvailability(e,key){ const status=e.target.checked; db.ref('products/'+key).update({isAvailable:status}); }
-
-// قائمة الإجراءات
-let activeDropdown=null;
-function toggleOptionsMenu(key){
-    if(activeDropdown && activeDropdown!==key) document.getElementById(`dropdown-${activeDropdown}`).style.display='none';
-    const dropdown=document.getElementById(`dropdown-${key}`);
-    dropdown.style.display=(dropdown.style.display==='block'?'none':'block');
-    activeDropdown=(dropdown.style.display==='block')?key:null;
-}
-document.addEventListener('click',()=>{if(activeDropdown){document.getElementById(`dropdown-${activeDropdown}`).style.display='none'; activeDropdown=null;}});
-
-// تشغيل عند تحميل الصفحة
-window.onload=()=>{displayProducts();};
+window.onresize = function() {
+    checkScreenSize(true);
+};
 </script>
 </body>
 </html>
