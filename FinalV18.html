@@ -4,16 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>مركز الراشد - إدارة المنتجات</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght=400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
 <style>
-/* -------------------- أنماط التصميم (الإصدار V28 - اللون الأحمر الفاقع لغير المتوفر) -------------------- */
-
+/* -------------------- أنماط التصميم الأساسية -------------------- */
 body { 
     font-family: 'Cairo', sans-serif; 
     direction: rtl; 
     margin: 0; 
     background: #f4f7f9; 
-    color: #333;
+    color: #000; 
     padding-top: 80px; 
 }
 header {
@@ -34,6 +33,389 @@ header {
     margin: 20px auto; 
     padding: 15px; 
 }
+.card {
+    background: white;
+    padding: 30px; 
+    margin-bottom: 25px; 
+    border-radius: 15px; 
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); 
+}
+h2 {
+    color: #1c4587; 
+    border-bottom: 2px solid #e0e6ec; 
+    padding-bottom: 15px;
+    margin-top: 0;
+    font-size: 22px;
+}
+.add-form input {
+    padding: 14px 15px; 
+    margin: 10px 0; 
+    width: 100%; 
+    box-sizing: border-box; 
+    border-radius: 10px; 
+    border: 1px solid #c9d2db; 
+    font-size: 16px;
+}
+#addProductButton {
+    background: #059669; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+    padding: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-top: 15px;
+    width: 100%;
+}
+
+/* أدوات البحث */
+.search-controls {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+#nameSearchInput, #searchKeyDropdown {
+    flex: 1;
+    min-width: 200px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid #1c4587;
+    font-family: 'Cairo';
+    color: #000;
+}
+
+#productsTable { width: 100%; border-collapse: collapse; }
+#productsTable th, #productsTable td { 
+    padding: 15px; 
+    text-align: center; 
+    border-bottom: 1px solid #e0e6ec; 
+    color: #000 !important; 
+}
+#productsTable th { background: #3b82f6; color: white !important; }
+
+/* -------------------- تلوين الصفوف بالألوان الفاقعة الأصلية -------------------- */
+.not-available { background-color: #ff4545 !important; border-left: 5px solid #ff0000; }
+.key-sam { background-color: #1a237e !important; }
+.key-hwa { background-color: #e91e63 !important; }
+.key-real { background-color: #ffeb3b !important; }
+.key-hnr { background-color: #bdbdbd !important; }
+.key-tec { background-color: #03a9f4 !important; }
+.key-inf { background-color: #8bc34a !important; }
+.key-xm { background-color: #ff9800 !important; }
+.key-opp { background-color: #4caf50 !important; }
+.key-iph { background-color: #212121 !important; }
+
+#productsTable tr[class^="key-"] td { font-weight: bold; }
+
+td[contenteditable="true"] { background: rgba(255,255,255,0.3); border: 1px dashed #000; }
+td[data-final-price] { background: rgba(255,255,255,0.5); font-weight: 900; }
+
+/* -------------------- نظام الإشعارات (Toast) -------------------- */
+#toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+.toast {
+    background: #10b981;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    margin-top: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    animation: slideIn 0.3s ease-out;
+}
+@keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+/* -------------------- نافذة الحذف المنبثقة المرتبة -------------------- */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.modal-btns {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+}
+.modal-btns button {
+    padding: 10px 25px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Cairo';
+    font-weight: bold;
+}
+.btn-confirm { background: #ef4444; color: white; }
+.btn-cancel { background: #e0e6ec; color: #333; }
+
+/* القائمة المنسدلة للخيارات */
+.options-btn { background: #1c4587; color: white; border: none; padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+.options-dropdown { display: none; position: absolute; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 50; border-radius: 8px; overflow: hidden; width: 120px; }
+.options-dropdown button { display: block; width: 100%; padding: 10px; border: none; background: none; text-align: right; cursor: pointer; font-family: 'Cairo'; color: #000; }
+
+@media screen and (max-width: 768px) {
+    #productsTable thead { display: none; }
+    #productsTable td { display: block; text-align: right; padding-right: 50%; position: relative; }
+    #productsTable td:before { content: attr(data-label); position: absolute; right: 10px; font-weight: bold; }
+}
+</style>
+</head>
+<body>
+
+<header>مركز الراشد - إدارة المخزون</header>
+
+<div id="toast-container"></div>
+
+<div id="deleteModal" class="modal-overlay">
+    <div class="modal-content">
+        <h3 style="color: #ef4444;">تأكيد الحذف</h3>
+        <p id="deleteMsg">هل أنت متأكد من حذف هذا المنتج؟</p>
+        <div class="modal-btns">
+            <button class="btn-confirm" id="confirmDeleteBtn">تأكيد الحذف</button>
+            <button class="btn-cancel" onclick="closeDeleteModal()">إلغاء</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div id="addProductSection" class="card">
+        <h2>إضافة منتج جديد</h2>
+        <div class="add-form">
+            <input type="text" id="productName" placeholder="📝 اسم المنتج">
+            <input type="text" id="brand" placeholder="🏷️ الماركة">
+            <input type="text" id="searchKey" placeholder="🔑 مفتاح البحث"> 
+            <input type="number" id="wholesalePrice" placeholder="💵 سعر الشاشة">
+            <input type="number" id="repairPrice" placeholder="🛠️ سعر التصليح">
+            <button id="addProductButton" onclick="addProduct()">➕ إضافة المنتج الجديد</button>
+        </div>
+    </div>
+    
+    <div class="card">
+        <h2>قائمة المنتجات والأسعار</h2>
+        <div class="search-controls">
+            <input type="text" id="nameSearchInput" onkeyup="filterByCombined()" placeholder="🔍 ابحث بالاسم...">
+            <select id="searchKeyDropdown" onchange="filterByCombined()">
+                <option value="">-- عرض كل المنتجات --</option>
+            </select>
+        </div>
+        <table id="productsTable">
+            <thead>
+                <tr>
+                    <th>التوفر</th> <th>اسم المنتج</th> <th>الماركة</th> <th>مفتاح البحث</th> <th>سعر الشاشة</th> <th>سعر التصليح</th> <th>السعر النهائي</th> <th>الإجراءات</th> 
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+    apiKey: "AIzaSyBpt495yhuoTbjunCLIFCF_8c1NesxZHWs",
+    authDomain: "shopweb-3466b.firebaseapp.com",
+    databaseURL: "https://shopweb-3466b-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "shopweb-3466b",
+    storageBucket: "shopweb-3466b.firebasestorage.app",
+    messagingSenderId: "41811528812",
+    appId: "1:41811528812:web:618f240f8106f218a8dc49"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+let allProductsData = {}; 
+let activeDropdownKey = null;
+let productToDelete = null;
+
+function showToast(msg) {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `✅ ${msg}`;
+    container.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+
+function openDeleteModal(key, name) {
+    productToDelete = key;
+    document.getElementById('deleteMsg').innerText = `هل أنت متأكد من حذف المنتج: (${name})؟`;
+    document.getElementById('deleteModal').style.display = 'flex';
+    document.getElementById('confirmDeleteBtn').onclick = () => {
+        db.ref('products/' + productToDelete).remove().then(() => {
+            closeDeleteModal();
+            loadData();
+            showToast("تم الحذف بنجاح");
+        });
+    };
+}
+
+function closeDeleteModal() {
+    document.getElementById('deleteModal').style.display = 'none';
+    productToDelete = null;
+}
+
+function formatNumber(num) { return Number(num).toLocaleString('en-US'); }
+function cleanNumber(text) { return parseInt(text.replace(/,/g, '').trim()) || 0; }
+
+function getRowStyleClass(searchKey) {
+    if (!searchKey) return '';
+    const key = searchKey.toUpperCase().trim();
+    const classes = { 'SAM': 'key-sam', 'HWA': 'key-hwa', 'REAL': 'key-real', 'HNR': 'key-hnr', 'TEC': 'key-tec', 'INF': 'key-inf', 'XM': 'key-xm', 'OPP': 'key-opp', 'IPH': 'key-iph' };
+    return classes[key] || '';
+}
+
+function filterByCombined() {
+    const nameQuery = document.getElementById('nameSearchInput').value.toLowerCase();
+    const keyQuery = document.getElementById('searchKeyDropdown').value.toUpperCase();
+    const tbody = document.querySelector('#productsTable tbody');
+    tbody.innerHTML = '';
+    const filtered = Object.keys(allProductsData)
+        .map(key => ({ key, ...allProductsData[key] }))
+        .filter(item => {
+            const matchesName = item.name.toLowerCase().includes(nameQuery);
+            const matchesKey = keyQuery === '' || (item.searchKey && item.searchKey.toUpperCase() === keyQuery);
+            return matchesName && matchesKey;
+        })
+        .sort((a, b) => a.name.localeCompare(b.name));
+    filtered.forEach(item => createProductRow(item, item.key, tbody));
+}
+
+function createProductRow(product, key, tbody) {
+    const row = tbody.insertRow();
+    row.setAttribute('data-key', key);
+    if (product.isAvailable !== false) {
+        const styleClass = getRowStyleClass(product.searchKey);
+        if (styleClass) row.classList.add(styleClass);
+    } else { row.classList.add('not-available'); }
+
+    row.insertCell(0).innerHTML = `<label class="switch"><input type="checkbox" ${product.isAvailable !== false ? 'checked' : ''} onclick="toggleAvailability(event, '${key}')"><span class="slider"></span></label>`;
+    const c1 = row.insertCell(1); c1.innerText = product.name; c1.contentEditable = true;
+    const c2 = row.insertCell(2); c2.innerText = product.brand; c2.contentEditable = true;
+    const c3 = row.insertCell(3); c3.innerText = product.searchKey || ''; c3.contentEditable = true;
+    const c4 = row.insertCell(4); c4.innerText = formatNumber(product.wholesale); c4.contentEditable = true;
+    const c5 = row.insertCell(5); c5.innerText = formatNumber(product.repair); c5.contentEditable = true;
+    const fCell = row.insertCell(6); fCell.innerText = formatNumber(Number(product.wholesale) + Number(product.repair));
+    fCell.setAttribute('data-final-price', 'true');
+
+    const actCell = row.insertCell(7);
+    actCell.style.position = 'relative';
+    actCell.innerHTML = `<button class="options-btn" onclick="toggleOptionsMenu(event, '${key}')">⚙️</button>
+        <div id="dropdown-${key}" class="options-dropdown">
+            <button onclick="saveProduct('${key}')" style="color: #059669;">💾 حفظ</button>
+            <button onclick="openDeleteModal('${key}', '${product.name}')" style="color: #ef4444;">🗑️ حذف</button>
+        </div>`;
+
+    [c4, c5].forEach(cell => {
+        cell.oninput = () => { fCell.innerText = formatNumber(cleanNumber(c4.innerText) + cleanNumber(c5.innerText)); };
+    });
+}
+
+function addProduct() {
+    const data = {
+        name: document.getElementById('productName').value,
+        brand: document.getElementById('brand').value,
+        searchKey: document.getElementById('searchKey').value,
+        wholesale: Number(document.getElementById('wholesalePrice').value),
+        repair: Number(document.getElementById('repairPrice').value),
+        isAvailable: true
+    };
+    if(!data.name) return;
+    db.ref('products').push(data).then(() => {
+        document.querySelectorAll('.add-form input').forEach(i => i.value = '');
+        loadData();
+        showToast("تمت الإضافة بنجاح");
+    });
+}
+
+function toggleAvailability(event, key) {
+    const status = event.target.checked;
+    db.ref('products/' + key).update({ isAvailable: status }).then(() => {
+        allProductsData[key].isAvailable = status;
+        filterByCombined();
+    });
+}
+
+function saveProduct(key) {
+    const row = document.querySelector(`tr[data-key="${key}"]`);
+    const updated = {
+        name: row.cells[1].innerText,
+        brand: row.cells[2].innerText,
+        searchKey: row.cells[3].innerText,
+        wholesale: cleanNumber(row.cells[4].innerText),
+        repair: cleanNumber(row.cells[5].innerText)
+    };
+    db.ref('products/' + key).update(updated).then(() => {
+        allProductsData[key] = { ...allProductsData[key], ...updated };
+        showToast("تم حفظ التعديلات بنجاح");
+        loadData();
+    });
+}
+
+function toggleOptionsMenu(e, key) {
+    e.stopPropagation();
+    if(activeDropdownKey) {
+        const dOld = document.getElementById(`dropdown-${activeDropdownKey}`);
+        if(dOld) dOld.style.display = 'none';
+    }
+    const d = document.getElementById(`dropdown-${key}`);
+    d.style.display = 'block';
+    activeDropdownKey = key;
+}
+
+function loadData() {
+    db.ref('products').once('value', snap => {
+        allProductsData = snap.val() || {};
+        updateDropdown();
+        filterByCombined();
+    });
+}
+
+function updateDropdown() {
+    const drop = document.getElementById('searchKeyDropdown');
+    const keys = new Set();
+    Object.values(allProductsData).forEach(p => p.searchKey && keys.add(p.searchKey.toUpperCase()));
+    let html = '<option value="">-- عرض كل المنتجات --</option>';
+    Array.from(keys).sort().forEach(k => html += `<option value="${k}">${k}</option>`);
+    drop.innerHTML = html;
+}
+
+window.onclick = () => {
+    if(activeDropdownKey) {
+        const d = document.getElementById(`dropdown-${activeDropdownKey}`);
+        if(d) d.style.display = 'none';
+        activeDropdownKey = null;
+    }
+};
+
+window.onload = loadData;
+</script>
+</body>
+</html>
 .card {
     background: white;
     padding: 30px; 
