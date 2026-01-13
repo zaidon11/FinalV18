@@ -26,8 +26,79 @@ header {
     font-size: 24px; 
     font-weight: 700; 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); 
-    z-index: 2000; /* رفع الهيدر للأعلى */
+    z-index: 2000; 
 }
+
+/* --- إضافة: ستايل عداد النواقص الجديد --- */
+.out-of-stock-counter {
+    position: fixed;
+    top: 15px;
+    left: 20px;
+    background: #ef4444;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+    cursor: pointer;
+    z-index: 3000;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    border: 2px solid white;
+    font-size: 14px;
+}
+.out-of-stock-counter:hover { transform: scale(1.05); background: #dc2626; }
+.counter-badge {
+    background: white;
+    color: #ef4444;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 12px;
+}
+
+/* --- إضافة: ستايل نافذة النواقص (Modal) --- */
+.inventory-modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 4000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+.inventory-content {
+    background: white;
+    width: 90%;
+    max-width: 450px;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+.inventory-header {
+    border-bottom: 2px solid #f3f4f6;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.inventory-item {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
 .container {
     max-width: 1200px; 
     margin: 20px auto; 
@@ -71,7 +142,6 @@ h2 {
     width: 100%;
 }
 
-/* أدوات البحث */
 .search-controls {
     display: flex;
     gap: 15px;
@@ -88,16 +158,14 @@ h2 {
     color: #000;
 }
 
-/* -------------------- تثبيت عناوين الجدول (Sticky Header) -------------------- */
 #productsTable { 
     width: 100%; 
     border-collapse: collapse; 
 }
 
-/* هذا الجزء هو المسؤول عن تثبيت العناوين عند النزول */
 #productsTable thead th {
     position: sticky;
-    top: 79px; /* يلتصق أسفل الهيدر مباشرة */
+    top: 79px; 
     background: #3b82f6; 
     color: white !important;
     z-index: 1000;
@@ -114,24 +182,22 @@ h2 {
     color: #000 !important; 
 }
 
-/* -------------------- تلوين الصفوف بالألوان الفاقعة الأصلية -------------------- */
 .not-available { background-color: #ff4545 !important; border-left: 5px solid #ff0000; }
-.key-sam { background-color: #1a237e !important; }
-.key-hwa { background-color: #e91e63 !important; }
+.key-sam { background-color: #1a237e !important; color: white !important; }
+.key-hwa { background-color: #e91e63 !important; color: white !important; }
 .key-real { background-color: #ffeb3b !important; }
 .key-hnr { background-color: #bdbdbd !important; }
-.key-tec { background-color: #03a9f4 !important; }
+.key-tec { background-color: #03a9f4 !important; color: white !important; }
 .key-inf { background-color: #8bc34a !important; }
-.key-xm { background-color: #ff9800 !important; }
-.key-opp { background-color: #4caf50 !important; }
-.key-iph { background-color: #212121 !important; }
+.key-xm { background-color: #ff9800 !important; color: white !important; }
+.key-opp { background-color: #4caf50 !important; color: white !important; }
+.key-iph { background-color: #212121 !important; color: white !important; }
 
 #productsTable tr[class^="key-"] td { font-weight: bold; }
 
 td[contenteditable="true"] { background: rgba(255,255,255,0.3); border: 1px dashed #000; }
 td[data-final-price] { background: rgba(255,255,255,0.5); font-weight: 900; }
 
-/* -------------------- نظام الإشعارات (Toast) -------------------- */
 #toast-container {
     position: fixed;
     bottom: 20px;
@@ -152,7 +218,6 @@ td[data-final-price] { background: rgba(255,255,255,0.5); font-weight: 900; }
 }
 @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
 
-/* -------------------- نافذة الحذف المنبثقة المرتبة -------------------- */
 .modal-overlay {
     display: none;
     position: fixed;
@@ -169,7 +234,6 @@ td[data-final-price] { background: rgba(255,255,255,0.5); font-weight: 900; }
     text-align: center;
     max-width: 400px;
     width: 90%;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 .modal-btns {
     display: flex;
@@ -192,16 +256,41 @@ td[data-final-price] { background: rgba(255,255,255,0.5); font-weight: 900; }
 .options-dropdown { display: none; position: absolute; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.2); z-index: 50; border-radius: 8px; overflow: hidden; width: 120px; }
 .options-dropdown button { display: block; width: 100%; padding: 10px; border: none; background: none; text-align: right; cursor: pointer; font-family: 'Cairo'; color: #000; }
 
+/* Switch Style */
+.switch { position: relative; display: inline-block; width: 40px; height: 20px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 20px; }
+.slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 2px; bottom: 2px; background-color: white; transition: .4s; border-radius: 50%; }
+input:checked + .slider { background-color: #10b981; }
+input:checked + .slider:before { transform: translateX(20px); }
+
 @media screen and (max-width: 768px) {
     #productsTable thead { display: none; }
     #productsTable td { display: block; text-align: right; padding-right: 50%; position: relative; }
     #productsTable td:before { content: attr(data-label); position: absolute; right: 10px; font-weight: bold; }
+    .out-of-stock-counter { top: auto; bottom: 80px; left: 10px; font-size: 12px; }
 }
 </style>
 </head>
 <body>
 
 <header>مركز الراشد - إدارة المخزون</header>
+
+<div class="out-of-stock-counter" onclick="openInventoryModal()">
+    <span>نقص الشاشات</span>
+    <span class="counter-badge" id="outCount">0</span>
+</div>
+
+<div class="inventory-modal" id="inventoryModal">
+    <div class="inventory-content">
+        <div class="inventory-header">
+            <h3 style="margin:0; color:#ef4444;">قائمة النواقص (غير متوفر)</h3>
+            <button onclick="closeInventoryModal()" style="border:none; background:none; cursor:pointer; font-size:20px;">✕</button>
+        </div>
+        <div id="inventoryList">
+            </div>
+    </div>
+</div>
 
 <div id="toast-container"></div>
 
@@ -268,6 +357,33 @@ let allProductsData = {};
 let activeDropdownKey = null;
 let productToDelete = null;
 
+// --- دوال العداد والنافذة الجديدة ---
+function updateOutOfStockInfo() {
+    let count = 0;
+    const listContainer = document.getElementById('inventoryList');
+    listContainer.innerHTML = '';
+
+    Object.keys(allProductsData).forEach(key => {
+        const p = allProductsData[key];
+        if (p.isAvailable === false) {
+            count++;
+            const div = document.createElement('div');
+            div.className = 'inventory-item';
+            div.innerHTML = `<span>${p.name}</span> <span style="color:#666; font-size:12px;">${p.brand}</span>`;
+            listContainer.appendChild(div);
+        }
+    });
+
+    document.getElementById('outCount').innerText = count;
+    if(count === 0) {
+        listContainer.innerHTML = '<p style="text-align:center; color:#10b981;">كل الشاشات متوفرة حالياً ✅</p>';
+    }
+}
+
+function openInventoryModal() { document.getElementById('inventoryModal').style.display = 'flex'; }
+function closeInventoryModal() { document.getElementById('inventoryModal').style.display = 'none'; }
+// ---------------------------------
+
 function showToast(msg) {
     const container = document.getElementById('toast-container');
     const toast = document.createElement('div');
@@ -319,6 +435,9 @@ function filterByCombined() {
         })
         .sort((a, b) => a.name.localeCompare(b.name));
     filtered.forEach(item => createProductRow(item, item.key, tbody));
+    
+    // تحديث العداد بعد التصفية
+    updateOutOfStockInfo();
 }
 
 function createProductRow(product, key, tbody) {
@@ -329,17 +448,21 @@ function createProductRow(product, key, tbody) {
         if (styleClass) row.classList.add(styleClass);
     } else { row.classList.add('not-available'); }
 
-    row.insertCell(0).innerHTML = `<label class="switch"><input type="checkbox" ${product.isAvailable !== false ? 'checked' : ''} onclick="toggleAvailability(event, '${key}')"><span class="slider"></span></label>`;
-    const c1 = row.insertCell(1); c1.innerText = product.name; c1.contentEditable = true;
-    const c2 = row.insertCell(2); c2.innerText = product.brand; c2.contentEditable = true;
-    const c3 = row.insertCell(3); c3.innerText = product.searchKey || ''; c3.contentEditable = true;
-    const c4 = row.insertCell(4); c4.innerText = formatNumber(product.wholesale); c4.contentEditable = true;
-    const c5 = row.insertCell(5); c5.innerText = formatNumber(product.repair); c5.contentEditable = true;
+    const c0 = row.insertCell(0);
+    c0.setAttribute('data-label', 'التوفر');
+    c0.innerHTML = `<label class="switch"><input type="checkbox" ${product.isAvailable !== false ? 'checked' : ''} onclick="toggleAvailability(event, '${key}')"><span class="slider"></span></label>`;
+    
+    const c1 = row.insertCell(1); c1.innerText = product.name; c1.contentEditable = true; c1.setAttribute('data-label', 'اسم المنتج');
+    const c2 = row.insertCell(2); c2.innerText = product.brand; c2.contentEditable = true; c2.setAttribute('data-label', 'الماركة');
+    const c3 = row.insertCell(3); c3.innerText = product.searchKey || ''; c3.contentEditable = true; c3.setAttribute('data-label', 'مفتاح البحث');
+    const c4 = row.insertCell(4); c4.innerText = formatNumber(product.wholesale); c4.contentEditable = true; c4.setAttribute('data-label', 'سعر الشاشة');
+    const c5 = row.insertCell(5); c5.innerText = formatNumber(product.repair); c5.contentEditable = true; c5.setAttribute('data-label', 'سعر التصليح');
     const fCell = row.insertCell(6); fCell.innerText = formatNumber(Number(product.wholesale) + Number(product.repair));
-    fCell.setAttribute('data-final-price', 'true');
+    fCell.setAttribute('data-final-price', 'true'); fCell.setAttribute('data-label', 'السعر النهائي');
 
     const actCell = row.insertCell(7);
     actCell.style.position = 'relative';
+    actCell.setAttribute('data-label', 'الإجراءات');
     actCell.innerHTML = `<button class="options-btn" onclick="toggleOptionsMenu(event, '${key}')">⚙️</button>
         <div id="dropdown-${key}" class="options-dropdown">
             <button onclick="saveProduct('${key}')" style="color: #059669;">💾 حفظ</button>
@@ -420,12 +543,14 @@ function updateDropdown() {
     drop.innerHTML = html;
 }
 
-window.onclick = () => {
+window.onclick = (e) => {
     if(activeDropdownKey) {
         const d = document.getElementById(`dropdown-${activeDropdownKey}`);
         if(d) d.style.display = 'none';
         activeDropdownKey = null;
     }
+    // إغلاق النافذة عند الضغط خارجها
+    if(e.target.className === 'inventory-modal') closeInventoryModal();
 };
 
 window.onload = loadData;
