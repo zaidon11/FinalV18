@@ -433,10 +433,15 @@ function filterByCombined() {
             const matchesKey = keyQuery === '' || (item.searchKey && item.searchKey.toUpperCase() === keyQuery);
             return matchesName && matchesKey;
         })
-        .sort((a, b) => a.name.localeCompare(b.name));
+        .sort((a, b) => {
+            // التعديل هنا: الترتيب أولاً بمفتاح البحث لضمان بقاء الشاشات من نفس النوع معاً
+            const keyA = (a.searchKey || "").toUpperCase();
+            const keyB = (b.searchKey || "").toUpperCase();
+            if (keyA !== keyB) return keyA.localeCompare(keyB);
+            return a.name.localeCompare(b.name);
+        });
     filtered.forEach(item => createProductRow(item, item.key, tbody));
     
-    // تحديث العداد بعد التصفية
     updateOutOfStockInfo();
 }
 
@@ -549,7 +554,6 @@ window.onclick = (e) => {
         if(d) d.style.display = 'none';
         activeDropdownKey = null;
     }
-    // إغلاق النافذة عند الضغط خارجها
     if(e.target.className === 'inventory-modal') closeInventoryModal();
 };
 
@@ -557,3 +561,4 @@ window.onload = loadData;
 </script>
 </body>
 </html>
+
